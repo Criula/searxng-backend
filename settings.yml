@@ -1,0 +1,54 @@
+use_default_settings: true
+
+general:
+  debug: false
+  instance_name: "BrowserSearch"
+
+server:
+  bind_address: "0.0.0.0"
+  port: 8080
+  # You can type any random letters/numbers below for the secret key:
+  secret_key: "mycustombrowsersecretrandomkey987654321"
+  limiter: false
+
+# Your Upstash Redis connection:
+redis:
+  url: "redis://default:gQAAAAAAAu5UAAIgcDI3Y2Q2NWUzMGRmYWE0MGIyYjljNjU2MDY5NjlkOTQ5Yw@civil-raven-192084.upstash.io:6379"
+
+search:
+  safe_search: 0
+  autocomplete: "duckduckgo"
+  formats:
+    - html
+    - json
+
+outgoing:
+  request_timeout: 2.5
+  enable_http2: true
+
+engines:
+  # Google disabled to avoid Render cloud IP blocking:
+  - name: google
+    engine: google
+    disabled: true
+
+  # Fast, reliable engines for cloud servers:
+  - name: bing
+    engine: bing
+    disabled: false
+    weight: 1.2
+
+  - name: duckduckgo
+    engine: duckduckgo
+    disabled: false
+    weight: 1.1
+
+  - name: brave
+    engine: brave
+    disabled: false
+    weight: 1.0
+
+  - name: wikipedia
+    engine: wikipedia
+    disabled: false
+    weight: 0.8
